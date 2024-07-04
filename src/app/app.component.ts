@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import {collection, Firestore, getDocs} from "@angular/fire/firestore";
 
 @Component({
   selector: 'app-root',
@@ -8,6 +9,14 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
-  title = 'product-feedback';
+export class AppComponent implements OnInit{
+  title = 'firebase-cms';
+  firestore = inject(Firestore);
+
+  ngOnInit() {
+    getDocs(collection(this.firestore, "testPath")).then(((response) => {
+      console.log(response)
+    }))
+  }
+
 }
