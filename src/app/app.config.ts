@@ -8,10 +8,13 @@ import { provideStorage, getStorage } from '@angular/fire/storage';
 import { routes } from './app.routes';
 import {environmentProduction} from "../environments/environment.development";
 import {environmentTest} from "../environments/testEnv/environment";
+import {AngularFirestoreModule} from "@angular/fire/compat/firestore";
+import {AngularFireAuthModule} from "@angular/fire/compat/auth";
+import {AngularFireStorageModule} from "@angular/fire/compat/storage";
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes, withViewTransitions()),
-    provideAnimations(),
+      provideRouter(routes, withViewTransitions()),
+      provideAnimations(),
       provideFirebaseApp(() => initializeApp(environmentTest.firebase)),
       provideAuth(() => getAuth()),
       provideFirestore(() => getFirestore()),

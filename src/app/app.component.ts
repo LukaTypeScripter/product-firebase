@@ -1,6 +1,7 @@
 import {Component, inject, OnInit} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {collection, Firestore, getDocs} from "@angular/fire/firestore";
+import {FirestoreService} from "./services/firestore.service";
 
 @Component({
   selector: 'app-root',
@@ -10,13 +11,27 @@ import {collection, Firestore, getDocs} from "@angular/fire/firestore";
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit{
-  title = 'firebase-cms';
-  firestore = inject(Firestore);
+  productRequests: any[] = [];
 
-  ngOnInit() {
-    getDocs(collection(this.firestore, "testPath")).then(((response) => {
-      console.log(response)
-    }))
+  constructor(private firestoreService: FirestoreService) { }
+
+  ngOnInit(): void {
+    this.firestoreService.getProductRequests().subscribe(data => {
+      console.log(data,"123")
+      this.productRequests = data;
+    });
+  }
+
+  addProductRequest() {
+    const newRequest = {
+      title: 'New Request',
+      category: 'enhancement',
+      upvotes: 0,
+      status: 'suggestion',
+      description: 'Description here'
+    };
+    console.log("came")
+    this.firestoreService.addProductRequest(newRequest);
   }
 
 }

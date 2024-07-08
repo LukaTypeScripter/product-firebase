@@ -1,0 +1,17 @@
+.home {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 94px 0 130px;
+  &-content {
+    width: 100%;
+    max-width: 1190px;
+    padding: 0 40px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+}

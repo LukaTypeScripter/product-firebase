@@ -1,0 +1,41 @@
+<div class="page-left">
+<!--  -->
+    <div class="page-left-banner">
+      <div class="page-left-banner-content">
+        <p>Frontend Mentor</p>
+        <p>Feedback Board</p>
+      </div>
+    </div>
+<!---->
+  <div class="page-left-categories">
+    @for (category of categories; track $index){
+      <div
+        class="page-left-categories-item"
+        (click)="handleSelectCategory(category)"
+        [class.page-left-categories-item--active]="selectedCategory === category">{{category}}</div>
+    }
+  </div>
+<!--  -->
+  <div class="page-left__road-map">
+    <div class="page-left__road-map-header">
+      <p>Roadmap</p>
+      <a href="">View</a>
+    </div>
+
+    <div class="page-left__road-map-status page-left__road-map-status--orange">
+        <p>Planned</p>
+        <p>2</p>
+    </div>
+
+    <div class="page-left__road-map-status page-left__road-map-status--pink">
+      <p>Planned</p>
+      <p>2</p>
+    </div>
+
+
+    <div class="page-left__road-map-status page-left__road-map-status--blue">
+      <p>Planned</p>
+      <p>2</p>
+    </div>
+  </div>
+</div>
