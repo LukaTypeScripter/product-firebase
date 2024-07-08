@@ -10,7 +10,7 @@ import {Post, PostType} from "../models/post.interface";
   providedIn: 'root'
 })
 export class FirestoreService {
-  private firestore: Firestore;
+  private readonly firestore: Firestore;
 
   constructor() {
     const app = initializeApp(environmentTest.firebase);
