@@ -7,4 +7,5 @@ export interface Post {
   status: string
   upvotes: number
   title: string
+  upvoted:boolean
 }

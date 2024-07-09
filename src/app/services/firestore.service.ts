@@ -5,16 +5,14 @@ import { Observable, from } from 'rxjs';
 import {environmentTest} from "../../environments/testEnv/environment";
 import {doc, Firestore, increment, updateDoc} from "@angular/fire/firestore";
 import {Post, PostType} from "../models/post.interface";
-
 @Injectable({
   providedIn: 'root'
 })
 export class FirestoreService {
-  private readonly firestore: Firestore;
 
-  constructor() {
-    const app = initializeApp(environmentTest.firebase);
-    this.firestore = getFirestore(app);
+  constructor(private readonly firestore: Firestore) {
+
+
   }
 
   async addProductRequest(request: Post): Promise<Post> {
@@ -61,8 +59,15 @@ export class FirestoreService {
 
   // Upvote methods
   async upvoteProductRequest(productRequestId: string): Promise<void> {
-    const productRequestDoc = doc(this.firestore, 'productRequests', productRequestId);
-    await updateDoc(productRequestDoc, { upvotes: increment(1) });
+    console.log(this.firestore,"123")
+    try {
+      const productRequestDoc = doc(this.firestore, 'productRequests', productRequestId);
+      await updateDoc(productRequestDoc, { upvotes: increment(1),upvoted: true });
+      console.log(`Successfully upvoted product request with ID: ${productRequestId}`);
+    } catch (error) {
+      console.error(`Error upvoting product request with ID: ${productRequestId}`, error);
+      throw error;
+    }
   }
 
   async upvoteComment(productRequestId: string, commentId: string): Promise<void> {

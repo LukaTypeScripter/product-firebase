@@ -1,0 +1,108 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.post-list {
+  &__item {
+    width: 98%;
+    display: flex;
+    background: #fff;
+    border-radius: 10px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    &-upvote {
+      margin-right: 40px;
+
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #f2f4fe;
+        border-radius: 10px;
+        width: 40px;
+        padding: 14px 0;
+        cursor: pointer;
+        svg {
+          height: 8px;
+          margin-bottom: 8px;
+        }
+        span {
+          font-style: normal;
+          font-weight: 700;
+          font-size: 13px;
+          line-height: 19px;
+          text-align: center;
+          letter-spacing: -.180556px;
+          color: #3a4374;
+        }
+      }
+      &--active {
+        div {
+          background-color: #4661e6;
+          svg {
+            fill: white;
+          }
+          span {
+            color: white;
+
+          }
+        }
+      }
+    }
+    &-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-decoration: none;
+      p:nth-child(1) {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 26px;
+        letter-spacing: -.25px;
+        color: #3a4374;
+        margin: 0 0 4px;
+      }
+      p:nth-child(2) {
+        font-style: normal;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 23px;
+        color: #647196;
+        margin: 0 0 12px;
+      }
+      p:nth-child(3) {
+        background-color: #f2f4ff;
+        border-radius: 10px;
+        padding: 5px 16px;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 19px;
+        color: #4661e6;
+        margin: 0;
+      }
+    }
+    &__comment-count {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-left: 40px;
+      svg {
+        height: 16px;
+        margin-right: 8px;
+      }
+      span {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 23px;
+        text-align: center;
+        letter-spacing: -.222222px;
+        color: #3a4374;
+      }
+    }
+  }
+}

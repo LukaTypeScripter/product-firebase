@@ -10,28 +10,7 @@ import {FirestoreService} from "./services/firestore.service";
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit{
-  productRequests: any[] = [];
+export class AppComponent{
 
-  constructor(private firestoreService: FirestoreService) { }
-
-  ngOnInit(): void {
-    this.firestoreService.getProductRequests().subscribe(data => {
-      console.log(data,"123")
-      this.productRequests = data;
-    });
-  }
-
-  addProductRequest() {
-    const newRequest = {
-      title: 'New Request',
-      category: 'enhancement',
-      upvotes: 0,
-      status: 'suggestion',
-      description: 'Description here'
-    };
-    console.log("came")
-    this.firestoreService.addProductRequest(newRequest);
-  }
 
 }
