@@ -7,6 +7,8 @@ import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { routes } from './app.routes';
 import {environmentTest} from "../environments/testEnv/environment";
+import {provideClientHydration} from "@angular/platform-browser";
+import {provideHttpClient} from "@angular/common/http";
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -16,5 +18,7 @@ export const appConfig: ApplicationConfig = {
       provideAuth(() => getAuth()),
       provideFirestore(() => getFirestore()),
       provideStorage(() => getStorage()),
+      provideClientHydration(),
+      provideHttpClient()
   ],
 };

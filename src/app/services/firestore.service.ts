@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, addDoc, getDocs, query, where } from 'firebase/firestore';
-import { Observable, from } from 'rxjs';
+import {Observable, from, Subject, BehaviorSubject} from 'rxjs';
 import {environmentTest} from "../../environments/testEnv/environment";
 import {doc, Firestore, increment, updateDoc} from "@angular/fire/firestore";
 import {Post, PostType} from "../models/post.interface";
@@ -9,10 +9,8 @@ import {Post, PostType} from "../models/post.interface";
   providedIn: 'root'
 })
 export class FirestoreService {
-
+  categoryType = new BehaviorSubject('all')
   constructor(private readonly firestore: Firestore) {
-
-
   }
 
   async addProductRequest(request: Post): Promise<Post> {
@@ -22,8 +20,13 @@ export class FirestoreService {
     });
   }
 
-  getProductRequests(): Observable<Post[]> {
-    const productRequestsCollection = collection(this.firestore, 'productRequests');
+  getProductRequests(category?:string): Observable<Post[]> {
+    let productRequestsCollection:any = collection(this.firestore, 'productRequests');
+
+    if (category && category !== "all"  ) {
+      productRequestsCollection  = query(productRequestsCollection, where('category', '==', category));
+    }
+
     return from(getDocs(productRequestsCollection).then(querySnapshot => {
       return querySnapshot.docs.map(doc => ({
         id: doc.id,

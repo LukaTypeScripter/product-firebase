@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {FirestoreService} from "../../../services/firestore.service";
-import {map, Observable} from "rxjs";
+import {map, Observable, switchMap, tap} from "rxjs";
 import {Post} from "../../../models/post.interface";
 import {AsyncPipe} from "@angular/common";
 
@@ -18,12 +18,17 @@ export class PostListComponent implements OnInit{
   posts$!: Observable<Post[]>
 
   ngOnInit() {
-   this.posts$ = this.fireStoreService.getProductRequests()
+   this.posts$ = this.fireStoreService.categoryType.pipe(
+     switchMap((category) => {
+     return this.fireStoreService.getProductRequests(category).pipe(tap(console.log))
+   }))
   }
 
   upvote(post:Post) {
     if(!post.upvoted) {
       this.fireStoreService.upvoteProductRequest(post.id as string)
+      this.fireStoreService.categoryType.next('all')
     }
   }
+
 }

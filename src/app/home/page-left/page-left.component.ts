@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
+import {FirestoreService} from "../../services/firestore.service";
 
 @Component({
   selector: 'app-page-left',
@@ -10,7 +11,11 @@ import { Component } from '@angular/core';
 export class PageLeftComponent {
   categories: Array<string> = ['all',"ui",'ux','Enhancement','Bug','Feature']
   selectedCategory = 'all';
+  private fireStoreService = inject(FirestoreService)
+
   handleSelectCategory(category:string) {
     this.selectedCategory = category;
+    this.fireStoreService.categoryType.next(this.selectedCategory)
   }
+
 }

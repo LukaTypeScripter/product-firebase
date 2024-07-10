@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {PostListComponent} from "./post-list/post-list.component";
+import {Router} from "express";
+import {NavigateService} from "../../services/navigate.service";
 
 @Component({
   selector: 'app-page-right',
@@ -11,5 +13,10 @@ import {PostListComponent} from "./post-list/post-list.component";
   styleUrl: './page-right.component.scss'
 })
 export class PageRightComponent {
+  private navigateService = inject(NavigateService)
+
+  onNavigate(slug:string) {
+    this.navigateService.navigateTo(slug)
+  }
 
 }
