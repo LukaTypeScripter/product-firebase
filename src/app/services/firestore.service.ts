@@ -23,10 +23,9 @@ export class FirestoreService {
   getProductRequests(category?:string): Observable<Post[]> {
     let productRequestsCollection:any = collection(this.firestore, 'productRequests');
 
-    if (category && category !== "all"  ) {
-      productRequestsCollection  = query(productRequestsCollection, where('category', '==', category));
+    if (category && category.toLowerCase() !== "all"  ) {
+      productRequestsCollection  = query(productRequestsCollection, where('status', '==', category.toLowerCase()));
     }
-
     return from(getDocs(productRequestsCollection).then(querySnapshot => {
       return querySnapshot.docs.map(doc => ({
         id: doc.id,
@@ -61,11 +60,14 @@ export class FirestoreService {
   }
 
   // Upvote methods
-  async upvoteProductRequest(productRequestId: string): Promise<void> {
-    console.log(this.firestore,"123")
+  async upvoteProductRequest(productRequestId: string,post:Post): Promise<void> {
     try {
       const productRequestDoc = doc(this.firestore, 'productRequests', productRequestId);
-      await updateDoc(productRequestDoc, { upvotes: increment(1),upvoted: true });
+      if(post.upvoted) {
+        await updateDoc(productRequestDoc, { upvotes: increment(-1),upvoted: false });
+      } else {
+        await updateDoc(productRequestDoc, { upvotes: increment(1),upvoted: true });
+      }
       console.log(`Successfully upvoted product request with ID: ${productRequestId}`);
     } catch (error) {
       console.error(`Error upvoting product request with ID: ${productRequestId}`, error);

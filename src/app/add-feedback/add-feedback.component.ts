@@ -33,7 +33,6 @@ ngOnDestroy() {
         upvotes: 0,
         upvoted:false
       }
-
       this.fireStoreService.addProductRequest(addedValues).then((_) => {
           this.navigateService.navigateTo('')
       })
