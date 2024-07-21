@@ -16,7 +16,6 @@ export class AuthServiceService {
     this.auth = getAuth(app);
   }
 
-
   // Authentication methods
   register(email: string, password: string): Promise<any> {
     return createUserWithEmailAndPassword(this.auth, email, password);

@@ -1,1 +1,67 @@
-<p>add-feedback works!</p>
+<div class="add-feedback">
+  <div class="add-feedback-container">
+    <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
+      <div class="add-feedback-container-go-back">
+        <p>Go Back</p>
+      </div>
+      <div class="add-feedback-container__card">
+        <svg data-v-53a454c6="" fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 56 56" class="form-icon">
+          <circle data-v-53a454c6="" cx="28" cy="28" r="28" fill="url(#a)"></circle>
+          <path data-v-53a454c6="" d="M30.343 36v-5.834h5.686v-4.302h-5.687V20h-4.596v5.864H20v4.302h5.746V36h4.597Z"
+                fill="#fff"></path>
+          <defs data-v-53a454c6="">
+            <radialGradient data-v-53a454c6="" id="a" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
+                            gradientTransform="rotate(129.411 30.466 10.84) scale(93.4169)">
+              <stop data-v-53a454c6="" stop-color="#E84D70"></stop>
+              <stop data-v-53a454c6="" offset=".531" stop-color="#A337F6"></stop>
+              <stop data-v-53a454c6="" offset="1" stop-color="#28A7ED"></stop>
+            </radialGradient>
+          </defs>
+        </svg>
+        <h3>Create New Feedback</h3>
+
+        <section class="add-feedback-container__card-group">
+          <p>Feedback Title</p>
+          <p>Add a short, descriptive headline</p>
+          <input formControlName="title">
+          <div *ngIf="feedbackForm.get('title')?.invalid && feedbackForm.get('title')?.touched">
+            <small *ngIf="feedbackForm.get('title')?.errors?.['required']">Title is required.</small>
+            <small *ngIf="feedbackForm.get('title')?.errors?.['maxlength']">Title cannot exceed 10 characters.</small>
+          </div>
+        </section>
+
+        <section class="add-feedback-container__card-group">
+          <p>Category</p>
+          <p>Choose a category for your feedback</p>
+          <select formControlName="status">
+            <option value=""></option>
+            <option value="feature">Feature</option>
+            <option value="ui">UI</option>
+            <option value="ux">UX</option>
+            <option value="enhancement">Enhancement</option>
+            <option value="bug">Bug</option>
+          </select>
+          <div *ngIf="feedbackForm.get('status')?.invalid && feedbackForm.get('status')?.touched">
+            <p>choose category</p>
+          </div>
+        </section>
+
+        <section class="add-feedback-container__card-group">
+          <p>Feedback Detail</p>
+          <p>Include any specific comments on what should be improved, added, etc.</p>
+          <textarea formControlName="description"></textarea>
+          <div *ngIf="feedbackForm.get('description')?.invalid && feedbackForm.get('description')?.touched">
+            <small *ngIf="feedbackForm.get('description')?.errors?.['required']">Title is required.</small>
+            <small *ngIf="feedbackForm.get('description')?.errors?.['maxlength']">Title cannot exceed 50 characters.</small>
+          </div>
+        </section>
+
+        <section class="add-feedback-container__card-btn-wrapper">
+          <button type="button" (click)="feedbackForm.reset()">Cancel</button>
+          <button type="submit" [disabled]="feedbackForm.invalid">Add Feedback</button>
+        </section>
+
+      </div>
+    </form>
+  </div>
+</div>
