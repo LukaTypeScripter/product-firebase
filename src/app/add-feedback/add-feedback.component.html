@@ -1,7 +1,7 @@
 <div class="add-feedback">
   <div class="add-feedback-container">
     <form [formGroup]="feedbackForm" (ngSubmit)="onSubmit()">
-      <div class="add-feedback-container-go-back">
+      <div class="add-feedback-container-go-back" (click)="onNavigateHome()">
         <p>Go Back</p>
       </div>
       <div class="add-feedback-container__card">

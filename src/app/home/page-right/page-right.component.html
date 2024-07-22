@@ -1,3 +1,7 @@
+@if($isSortPopupOpen$()) {
+  <div class="overlay" (click)="$isSortPopupOpen$.set(false)"></div>
+}
+
 <div class="page-right">
     <section class="page-right__header">
       <section class="page-right__header-wrapper">
@@ -9,7 +13,10 @@
           <div></div>
         </section>
         <section class="page-right__header-right">
-          <p>Sort by: <span>Most Upvotes <img src="./assets/arrow-up.png" alt="*"></span></p>
+          <p (click)="$isSortPopupOpen$.set(true)">Sort by: <span>Most Upvotes <img src="./assets/arrow-up.png" alt="*"></span></p>
+          @if($isSortPopupOpen$()) {
+            <app-sort-popup (close)="$isSortPopupOpen$()"/>
+          }
         </section>
       </section>
 

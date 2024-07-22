@@ -16,6 +16,7 @@ export class PageLeftComponent {
   handleSelectCategory(category:string) {
     this.selectedCategory = category;
     this.fireStoreService.categoryType.next(this.selectedCategory)
+    this.fireStoreService.sortOption.next("")
   }
 
 }

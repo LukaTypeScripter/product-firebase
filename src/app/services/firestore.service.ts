@@ -3,13 +3,14 @@ import { initializeApp } from 'firebase/app';
 import { getFirestore, collection, addDoc, getDocs, query, where } from 'firebase/firestore';
 import {Observable, from, Subject, BehaviorSubject} from 'rxjs';
 import {environmentTest} from "../../environments/testEnv/environment";
-import {doc, Firestore, increment, updateDoc} from "@angular/fire/firestore";
+import {doc, Firestore, increment, orderBy, updateDoc} from "@angular/fire/firestore";
 import {Post, PostType} from "../models/post.interface";
 @Injectable({
   providedIn: 'root'
 })
 export class FirestoreService {
   categoryType = new BehaviorSubject('all')
+  sortOption = new BehaviorSubject('Most Upvotes')
   constructor(private readonly firestore: Firestore) {
   }
 
@@ -20,19 +21,40 @@ export class FirestoreService {
     });
   }
 
-  getProductRequests(category?:string): Observable<Post[]> {
-    let productRequestsCollection:any = collection(this.firestore, 'productRequests');
-
-    if (category && category.toLowerCase() !== "all"  ) {
-      productRequestsCollection  = query(productRequestsCollection, where('status', '==', category.toLowerCase()));
+  getProductRequests(category?: string, sortOption?: string): Observable<Post[]> {
+    let productRequestsCollection = collection(this.firestore, 'productRequests');
+    let productRequestsQuery: any;
+    if (category && category.toLowerCase() !== "all") {
+      productRequestsQuery = query(productRequestsCollection, where('status', '==', category.toLowerCase()));
+    } else {
+      productRequestsQuery = productRequestsCollection;
     }
-    return from(getDocs(productRequestsCollection).then(querySnapshot => {
+
+    switch (sortOption) {
+      case 'Most Upvotes':
+        productRequestsQuery = query(productRequestsQuery, orderBy('upvotes', 'desc'));
+        break;
+      case 'Least Upvotes':
+        productRequestsQuery = query(productRequestsQuery, orderBy('upvotes', 'asc'));
+        break;
+      case 'Most Comments':
+        productRequestsQuery = query(productRequestsQuery, orderBy('commentsCount', 'desc'));
+        break;
+      case 'Least Comments':
+        productRequestsQuery = query(productRequestsQuery, orderBy('commentsCount', 'asc'));
+        break;
+      default:
+        break;
+    }
+
+    return from(getDocs(productRequestsQuery).then(querySnapshot => {
       return querySnapshot.docs.map(doc => ({
         id: doc.id,
         ...(doc.data() as Post)
       } as Post));
     }));
   }
+
 
 
   addComment(productRequestId: string, comment: any): Promise<any> {

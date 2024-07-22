@@ -34,10 +34,12 @@ ngOnDestroy() {
         upvoted:false
       }
       this.fireStoreService.addProductRequest(addedValues).then((_) => {
-          this.navigateService.navigateTo('')
+          this.onNavigateHome()
       })
     }
   }
-
+  onNavigateHome() {
+    this.navigateService.navigateTo('')
+  }
 
 }

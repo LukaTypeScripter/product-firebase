@@ -1,0 +1,27 @@
+.sort-popup {
+  position: absolute;
+  left: 0;
+  top: 60px;
+  min-width: 255px;
+  background: #fff;
+  box-shadow: 0 10px 40px -7px rgba(55, 63, 104, .350492);
+  border-radius: 10px;
+  z-index: 11;
+  &-option {
+    position: relative;
+    padding: 12px 24px;
+    border-bottom: 1px solid rgba(58, 67, 116, .15);
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 23px;
+    color: #647196;
+    cursor: pointer;
+    &--active {
+      background-image: url(../../../../assets/selected-mark.svg);
+      background-size: 12px 8px;
+      background-repeat: no-repeat;
+      background-position: center right 24px;
+    }
+  }
+}

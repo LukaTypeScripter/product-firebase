@@ -1,0 +1,9 @@
+
+<div class="sort-popup">
+  @for (options of sortOptions;track $index) {
+    <div class="sort-popup-option"
+       (click)="onSortChange(options)"
+       [class.sort-popup-option--active]="selectedSortOption === options"
+    > {{options}}</div>
+  }
+</div>
